@@ -99,8 +99,8 @@ skills/env-report/
 |------|-----|
 | Claude Code 版本 | 2.1.186 |
 | Node.js / npm | v24.14.1 / 11.11.0 |
-| 当前模型 | mimo-v2.5-pro |
-| API 代理 | https://token-plan-cn.xiaomimimo.com/anthropic |
+| 当前模型 | claude-sonnet-4-6 或其他模型 |
+| API 代理 | 直连 或 自定义代理地址 |
 | 操作系统 | MINGW64_NT-10.0-19045 |
 
 ### MCP 服务器 (5个)
