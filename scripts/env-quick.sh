@@ -61,6 +61,32 @@ else
 fi
 
 echo ""
+echo "=== MCP_SERVERS ==="
+python -c "
+import json, sys, io, os
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+servers = {}
+# 从 settings.json 读取 mcpServers 配置
+for cfg in [os.path.expanduser('~/.claude/settings.json'), '.claude/settings.json']:
+    if os.path.exists(cfg):
+        try:
+            with open(cfg, 'r', encoding='utf-8') as f:
+                d = json.load(f)
+            for name, conf in d.get('mcpServers', {}).items():
+                if name not in servers:
+                    cmd = conf.get('command', 'N/A')
+                    args = conf.get('args', [])
+                    servers[name] = {'command': cmd, 'args': args}
+        except Exception:
+            pass
+if servers:
+    for name, info in servers.items():
+        print(f'{name}|{info[\"command\"]}|{\" \".join(str(a) for a in info[\"args\"])}')
+else:
+    print('N/A')
+" 2>/dev/null || echo "N/A"
+
+echo ""
 echo "=== PLUGINS ==="
 if [ -f "${CLAUDE_DIR}/plugins/installed_plugins.json" ]; then
     python -c "
